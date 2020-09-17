@@ -1,22 +1,39 @@
-const cityInput = document.getElementById("city-input").value;
-
+const cityInput = document.getElementById("city-input").value; // get city name from user input
+// the api key
 const myKey = config.MY_KEY;
-const secretKey = config.SECRET_KEY;
 
-// object for each day
-let firstDay = {
+let myData = {
 
-};
+}
+let day = [];
+// change the time to the formal and readable one
+const changeDate = (date)=> {
+    let dateObj = new Date(date * 1000);
+    return dateObj.toUTCString();
+}
 
+// listen to the click event
 document.getElementById("search-input").addEventListener("click", ()=> {
-    fetch('http://api.openweathermap.org/data/2.5/forecast?q='+cityInput+'&appid='+myKey)
-        .then(respond => respond.json()).then(fiveDayData => {
-        console.log(fiveDayData);
-        let dayOne = fiveDayData.list.slice(0, 8);
-        let dayTwo = fiveDayData.list.slice(8, 16);
-        let dayThree = fiveDayData.list.slice(16, 24);
-        let dayFour = fiveDayData.list.slice(24, 32);
-        let dayFive = fiveDayData.list.slice(32, 40);
+    // fetch data from the server
+    fetch('http://api.openweathermap.org/data/2.5/forecast?q='+cityInput+'&appid='+myKey+'&units=metric')
+        .then(respond => respond.json()).then(weatherData => {
+            console.log(weatherData.list);
+            myData.city = weatherData.city.name;
+            myData.country = weatherData.city.country;
+            myData.sunrise = changeDate(weatherData.city.sunrise);
+            myData.sunset = changeDate(weatherData.city.sunset);
+
+        console.log(myData)
+    })
+});
+
+
+/*
+let dayOne = weatherData.list.slice(0, 8);
+        let dayTwo = weatherData.list.slice(8, 16);
+        let dayThree = weatherData.list.slice(16, 24);
+        let dayFour = weatherData.list.slice(24, 32);
+        let dayFive = weatherData.list.slice(32, 40);
 
         let days = [dayOne, dayTwo, dayThree, dayFour, dayFive];
 
@@ -25,9 +42,9 @@ document.getElementById("search-input").addEventListener("click", ()=> {
             return dateObj.toUTCString();
         }
 
-        firstDay.city = fiveDayData.city.name;
-        firstDay.sunrise = changeDate(fiveDayData.city.sunrise);
-        firstDay.sunset = changeDate(fiveDayData.city.sunset);
+        firstDay.city = weatherData.city.name;
+        firstDay.sunrise = changeDate(weatherData.city.sunrise);
+        firstDay.sunset = changeDate(weatherData.city.sunset);
 
         days.forEach(day => {
             let temp_C_ave, totalTempMax = 0, totalTempMin = 0, totalTempAve;
@@ -37,11 +54,12 @@ document.getElementById("search-input").addEventListener("click", ()=> {
             })
             totalTempAve = (totalTempMax + totalTempMin)/16
             temp_C_ave = Math.round(totalTempAve - 273.15);
-            firstDay.tempAve = temp_C_ave;
+            firstDay.tempAve += temp_C_ave;
+            allDaysWeather.push(firstDay);
+
         })
-        console.log(firstDay);
-    })
-});
+        console.log(allDaysWeather);
+ */
 
 
 
