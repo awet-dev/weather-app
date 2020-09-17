@@ -1,3 +1,15 @@
+body {
+  background-image: url("johannes-plenio-600dw3-1rv4-unsplash.jpg");
+  background-position: center;
+  background-repeat: no-repeat;
+  color: white;
+}
+
+.header {
+  width: 100%;
+  text-align: right;
+}
+
 .d-flex {
   display: flex;
   justify-content: space-around;
@@ -5,6 +17,16 @@
 
 .d-flex > div {
   display: block;
+}
+
+.city-img {
+  width: 80%;
+  height: auto;
+  margin: auto;
+}
+
+.days {
+  text-align: center;
 }
 
 /*# sourceMappingURL=style.css.map */

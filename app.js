@@ -2,7 +2,7 @@ const cityInput = document.getElementById("city-input").value; // get city name 
 const images = document.querySelectorAll(".img");
 const time = document.querySelectorAll(".time");
 const averageTemp = document.querySelectorAll(".averageTemp");
-let dayCounter = 1;
+let dayCounter = 0;
 // the api key
 const myKey = config.MY_KEY;
 
@@ -22,6 +22,7 @@ document.getElementById("search-input").addEventListener("click", ()=> {
     // fetch data from the server
     fetch('http://api.openweathermap.org/data/2.5/forecast?q='+cityInput+'&appid='+myKey)
         .then(respond => respond.json()).then(weatherData => {
+            console.log(weatherData);
         myData.name = weatherData.city.name
         return weatherData.city.coord;
     }).then(coord => {
@@ -47,15 +48,14 @@ document.getElementById("search-input").addEventListener("click", ()=> {
                 myData.icon = icons;
                 myData.days = days
 
-                console.log(myData)
-
                 images.forEach(img => {
-                    img.setAttribute('src', 'http://openweathermap.org/img/wn/'+icons[dayCounter-1]+'@2x.png');
-                    averageTemp[dayCounter-1].innerHTML = temp[dayCounter-1];
-                    time[dayCounter-1].innerHTML = days[dayCounter-1]
+                    img.setAttribute('src', 'http://openweathermap.org/img/wn/'+icons[dayCounter]+'@2x.png');
+                    averageTemp[dayCounter].innerHTML = temp[dayCounter];
+                    time[dayCounter].innerHTML = days[dayCounter]
                     dayCounter++;
                 })
-
+                document.querySelector(".city-name").innerHTML  = myData.name
+                dayCounter = 0;
         })
     })
 });
