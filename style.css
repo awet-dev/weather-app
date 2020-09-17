@@ -1,3 +1,10 @@
+.d-flex {
+  display: flex;
+  justify-content: space-around;
+}
 
+.d-flex > div {
+  display: block;
+}
 
 /*# sourceMappingURL=style.css.map */
