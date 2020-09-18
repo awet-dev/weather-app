@@ -8,7 +8,6 @@ const imgBg = document.querySelector(".city-bg")
 
 const cityName = document.querySelector(".city-name");
 const curTemp = document.querySelector(".currentTemp");
-const weatherToday = document.querySelector(".weather-today");
 const curWeatherDes = document.querySelector(".cur-weather-des");
 const curIcon = document.querySelector(".img-current");
 
@@ -39,7 +38,7 @@ document.getElementById("search-input").addEventListener("click", ()=> {
         // fetch data from the server
         fetch('http://api.openweathermap.org/data/2.5/forecast?q='+cityInput+'&appid='+myKey)
             .then(respond => respond.json()).then(weatherData => {
-            myData.name = weatherData.city.name
+            myData.name = "Today's weather of "+weatherData.city.name
             return weatherData.city.coord;
         }).then(coord => {
             // second fetch on the one call api
@@ -55,7 +54,6 @@ document.getElementById("search-input").addEventListener("click", ()=> {
                     myData.curIcon = oneCallData.current.weather[0].icon;
 
                     cityName.innerHTML = myData.name
-                    weatherToday.innerHTML = "Today's weather";
                     curTemp.innerHTML = Math.round(myData.currentTemp)+" °C";
                     curWeatherDes.innerHTML = myData.description
                     curIcon.setAttribute("src", 'http://openweathermap.org/img/wn/'+myData.curIcon+'@2x.png')
@@ -93,9 +91,9 @@ document.getElementById("search-input").addEventListener("click", ()=> {
             .then(respond => respond.json())
             .then(imageData => {
                 console.log(imageData);
-                imgBg.style.backgroundImage = 'url('+imageData.results[0].urls.thumb+')';
+                imgBg.style.backgroundImage = 'url('+imageData.results[2].urls.small+')';
                 imgBg.style.backgroundRepeat = "no-repeat"
-
+                imgBg.style.backgroundPosition = "center"
             })
     }
 });
