@@ -1,5 +1,5 @@
 body {
-  background-image: url("back-ground.jpg");
+  background-image: url("backGg.jpg");
   background-position: center;
   background-repeat: no-repeat;
   color: white;
@@ -8,15 +8,6 @@ body {
 .header {
   width: 100%;
   text-align: right;
-}
-
-.d-flex {
-  display: flex;
-  justify-content: space-around;
-}
-
-.d-flex > div {
-  display: block;
 }
 
 .city-img {

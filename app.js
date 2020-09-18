@@ -4,8 +4,8 @@ const images = document.querySelectorAll(".img");
 const time = document.querySelectorAll(".time");
 const averageTemp = document.querySelectorAll(".averageTemp");
 const weatherDesElement = document.querySelectorAll(".weather-des");
-const imgBg = document.querySelector(".city-bg")
 
+const imgBg = document.querySelector(".city-bg")
 const cityName = document.querySelector(".city-name");
 const curTemp = document.querySelector(".currentTemp");
 const curWeatherDes = document.querySelector(".cur-weather-des");
@@ -22,7 +22,6 @@ const changeDate = (date)=> {
     let utcString = dateObj.toUTCString();
     let time = utcString.slice(0, -12);
     return time;
-
 }
 
 // data variables
@@ -63,7 +62,7 @@ document.getElementById("search-input").addEventListener("click", ()=> {
                         days.push(changeDate(day.dt)); // the time of each day
                         icons.push(day.weather[0].icon) // icon for each day
                         weatherDes.push(day.weather[0].description) // description for each day
-                        let dailyAveTem = (day.temp.min + day.temp.max)/2; // calculate average temperature
+                        let dailyAveTem = (day.temp.day + day.temp.eve + day.temp.morn + day.temp.night)/4; // calculate average temperature
                         temp.push(Math.round(dailyAveTem)+" °C");
                     })
                     // data in one weather variable of object
@@ -90,8 +89,7 @@ document.getElementById("search-input").addEventListener("click", ()=> {
         fetch('https://api.unsplash.com/search/photos?query='+cityInput+'&client_id='+myKey_2)
             .then(respond => respond.json())
             .then(imageData => {
-                console.log(imageData);
-                imgBg.style.backgroundImage = 'url('+imageData.results[2].urls.small+')';
+                imgBg.style.backgroundImage = 'url('+imageData.results[0].urls.small+')';
                 imgBg.style.backgroundRepeat = "no-repeat"
                 imgBg.style.backgroundPosition = "center"
             })
